@@ -1,20 +1,5 @@
 import Dexie, { type EntityTable } from 'dexie'
 
-export interface Exercise {
-  id?: number
-  name: string
-  target: string
-  sortOrder: number
-  active: boolean
-}
-
-export interface ExerciseCompletion {
-  id?: number
-  exerciseId: number
-  date: string // YYYY-MM-DD
-  completedAt: number
-}
-
 export interface WeightEntry {
   id?: number
   date: string // YYYY-MM-DD
@@ -50,11 +35,70 @@ export interface HealthRecord {
   recordedAt: number
 }
 
+export const WORKOUT_CATEGORIES = ['CHEST_TRICEPS', 'BACK_BICEPS', 'LEGS_SHOULDERS'] as const
+export type WorkoutCategory = (typeof WORKOUT_CATEGORIES)[number]
+
+export interface WorkoutSession {
+  id?: number
+  category: WorkoutCategory
+  date: string // YYYY-MM-DD
+  completedAt: number
+}
+
+export const TEST_CATEGORIES = [
+  'LIVER',
+  'KIDNEY',
+  'HEART',
+  'THYROID',
+  'BLOOD_SUGAR',
+  'LIPID_PROFILE',
+  'CBC',
+  'VITAMINS',
+  'OTHER',
+] as const
+export type TestCategory = (typeof TEST_CATEGORIES)[number]
+
+export const TEST_CATEGORY_LABELS: Record<TestCategory, string> = {
+  LIVER: 'Liver',
+  KIDNEY: 'Kidney',
+  HEART: 'Heart',
+  THYROID: 'Thyroid',
+  BLOOD_SUGAR: 'Blood Sugar',
+  LIPID_PROFILE: 'Lipid Profile',
+  CBC: 'Complete Blood Count',
+  VITAMINS: 'Vitamins',
+  OTHER: 'Other',
+}
+
+export interface HealthReport {
+  id?: number
+  date: string // YYYY-MM-DD
+  title: string
+  labName: string
+  fileBlob: Blob
+  fileName: string
+  fileType: string
+  uploadedAt: number
+}
+
+export interface HealthParameter {
+  id?: number
+  reportId?: number
+  category: TestCategory
+  name: string
+  value: number
+  unit: string
+  referenceRange: string
+  date: string // YYYY-MM-DD
+  recordedAt: number
+}
+
 class WellnessDatabase extends Dexie {
-  exercises!: EntityTable<Exercise, 'id'>
-  exerciseCompletions!: EntityTable<ExerciseCompletion, 'id'>
   weightEntries!: EntityTable<WeightEntry, 'id'>
   healthRecords!: EntityTable<HealthRecord, 'id'>
+  workoutSessions!: EntityTable<WorkoutSession, 'id'>
+  healthReports!: EntityTable<HealthReport, 'id'>
+  healthParameters!: EntityTable<HealthParameter, 'id'>
 
   constructor() {
     super('wellness')
@@ -64,23 +108,17 @@ class WellnessDatabase extends Dexie {
       weightEntries: '++id, date',
       healthRecords: '++id, date',
     })
+    this.version(2)
+      .stores({
+        exercises: null,
+        exerciseCompletions: null,
+        weightEntries: '++id, date',
+        healthRecords: '++id, date',
+        workoutSessions: '++id, category, date',
+        healthReports: '++id, date',
+        healthParameters: '++id, category, name, date, [category+name]',
+      })
   }
 }
 
 export const db = new WellnessDatabase()
-
-const DEFAULT_EXERCISES: Omit<Exercise, 'id'>[] = [
-  { name: 'Morning walk', target: '30 minutes', sortOrder: 0, active: true },
-  { name: 'Stretching', target: '10 minutes', sortOrder: 1, active: true },
-  { name: 'Strength training', target: '20 minutes', sortOrder: 2, active: true },
-  { name: 'Evening walk', target: '20 minutes', sortOrder: 3, active: true },
-]
-
-export async function seedDatabase() {
-  await db.transaction('rw', db.exercises, async () => {
-    const count = await db.exercises.count()
-    if (count === 0) {
-      await db.exercises.bulkAdd(DEFAULT_EXERCISES)
-    }
-  })
-}
