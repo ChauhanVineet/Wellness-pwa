@@ -42,11 +42,14 @@ function AnimatedRotate({ range }: { range?: JointRange }) {
 }
 
 const TORSO_LEN = 44
-const HEAD_R = 15
+const NECK_LEN = 7
+const HEAD_RX = 13
+const HEAD_RY = 16
 const UPPER_ARM_LEN = 24
 const FOREARM_LEN = 20
 const THIGH_LEN = 30
 const SHIN_LEN = 30
+const HEAD_CY = -(TORSO_LEN + NECK_LEN + HEAD_RY)
 
 function EquipmentProp({ equipment, orientation }: { equipment: Equipment; orientation: Orientation }) {
   switch (equipment) {
@@ -112,34 +115,39 @@ export function ExerciseAnimation({
       <EquipmentProp equipment={equipment} orientation={pose.orientation} />
 
       <g transform={`translate(100,140) rotate(${orientationDeg})`} strokeLinecap="round" fill="none">
-        {/* Leg: hip -> knee, thick tapering capsule limbs */}
+        {/* Leg: hip -> knee, slight quad bulge, tapered capsule shin */}
         <g transform={`rotate(${pose.hipRest})`}>
           <AnimatedRotate range={pose.animate.hip} />
-          <line x1={0} y1={0} x2={0} y2={THIGH_LEN} stroke={BODY_COLOR} strokeWidth={22} />
+          <path d={`M 0,0 Q 7,${THIGH_LEN * 0.5} 0,${THIGH_LEN}`} stroke={BODY_COLOR} strokeWidth={21} />
           <g transform={`translate(0, ${THIGH_LEN}) rotate(${pose.kneeRest})`}>
             <AnimatedRotate range={pose.animate.knee} />
-            <line x1={0} y1={0} x2={0} y2={SHIN_LEN} stroke={BODY_COLOR} strokeWidth={18} />
-            <circle cx={0} cy={SHIN_LEN} r={8} fill={ACCENT_COLOR} />
+            <line x1={0} y1={0} x2={0} y2={SHIN_LEN} stroke={BODY_COLOR} strokeWidth={16} />
+            <ellipse cx={6} cy={SHIN_LEN} rx={11} ry={6} fill={ACCENT_COLOR} />
           </g>
         </g>
 
-        {/* Torso + head */}
+        {/* Torso: curved spine path (slight lower-back arch, forward chest curve) + neck + head */}
         <g transform={`rotate(${pose.torsoRest})`}>
           <AnimatedRotate range={pose.animate.torso} />
-          <line x1={0} y1={0} x2={0} y2={-TORSO_LEN} stroke={BODY_COLOR} strokeWidth={32} />
-          <circle cx={0} cy={-TORSO_LEN - HEAD_R - 4} r={HEAD_R} fill={BODY_COLOR} />
-          <circle cx={-5} cy={-TORSO_LEN - HEAD_R - 4} r={1.6} fill="white" />
-          <circle cx={5} cy={-TORSO_LEN - HEAD_R - 4} r={1.6} fill="white" />
+          <path
+            d={`M 0,0 C -7,${-TORSO_LEN * 0.28} 9,${-TORSO_LEN * 0.7} 0,${-TORSO_LEN}`}
+            stroke={BODY_COLOR}
+            strokeWidth={30}
+          />
+          <line x1={0} y1={-TORSO_LEN} x2={0} y2={-TORSO_LEN - NECK_LEN} stroke={BODY_COLOR} strokeWidth={13} />
+          <ellipse cx={0} cy={HEAD_CY} rx={HEAD_RX} ry={HEAD_RY} fill={BODY_COLOR} />
+          <circle cx={-4.5} cy={HEAD_CY - 1} r={1.5} fill="white" />
+          <circle cx={4.5} cy={HEAD_CY - 1} r={1.5} fill="white" />
 
-          {/* Arm: shoulder -> elbow -> dumbbell */}
+          {/* Arm: shoulder -> elbow -> hand, slight bicep bulge */}
           <g transform={`translate(0, ${-TORSO_LEN}) rotate(${pose.shoulderRest})`}>
             <AnimatedRotate range={pose.animate.shoulder} />
-            <line x1={0} y1={0} x2={0} y2={UPPER_ARM_LEN} stroke={BODY_COLOR} strokeWidth={17} />
+            <path d={`M 0,0 Q 6,${UPPER_ARM_LEN * 0.5} 0,${UPPER_ARM_LEN}`} stroke={BODY_COLOR} strokeWidth={16} />
             <g transform={`translate(0, ${UPPER_ARM_LEN}) rotate(${pose.elbowRest})`}>
               <AnimatedRotate range={pose.animate.elbow} />
-              <line x1={0} y1={0} x2={0} y2={FOREARM_LEN} stroke={BODY_COLOR} strokeWidth={14} />
+              <line x1={0} y1={0} x2={0} y2={FOREARM_LEN} stroke={BODY_COLOR} strokeWidth={13} />
               <g transform={`translate(0, ${FOREARM_LEN})`}>
-                <circle cx={0} cy={0} r={7} fill={ACCENT_COLOR} />
+                <ellipse cx={0} cy={3} rx={6.5} ry={9} fill={ACCENT_COLOR} />
                 {equipment === 'dumbbell' && (
                   <>
                     <rect x={-4} y={-11} width={8} height={22} rx={2} fill="#334155" />
