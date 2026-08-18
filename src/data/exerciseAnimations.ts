@@ -1,7 +1,7 @@
 import type { ExercisePose } from '../components/ExerciseAnimation'
 
 export const EXERCISE_POSES: Record<string, ExercisePose> = {
-  'Dumbbell Floor Press': {
+  'Flat Dumbbell Bench Press': {
     orientation: 'lying',
     torsoRest: 0,
     shoulderRest: 90,
@@ -10,7 +10,16 @@ export const EXERCISE_POSES: Record<string, ExercisePose> = {
     kneeRest: 0,
     animate: { elbow: { from: -110, to: 0 } },
   },
-  'Dumbbell Floor Fly': {
+  'Incline Dumbbell Press': {
+    orientation: 'lying',
+    torsoRest: 0,
+    shoulderRest: 75,
+    elbowRest: -110,
+    hipRest: 0,
+    kneeRest: 0,
+    animate: { elbow: { from: -110, to: 0 } },
+  },
+  'Dumbbell Bench Fly': {
     orientation: 'lying',
     torsoRest: 0,
     shoulderRest: 10,
@@ -19,16 +28,16 @@ export const EXERCISE_POSES: Record<string, ExercisePose> = {
     kneeRest: 0,
     animate: { shoulder: { from: 10, to: 95 } },
   },
-  'Dumbbell Pullover': {
-    orientation: 'lying',
+  'Cable Triceps Pushdown': {
+    orientation: 'standing',
     torsoRest: 0,
-    shoulderRest: 150,
-    elbowRest: -15,
+    shoulderRest: 0,
+    elbowRest: -100,
     hipRest: 0,
     kneeRest: 0,
-    animate: { shoulder: { from: 150, to: 85 } },
+    animate: { elbow: { from: -100, to: 0 } },
   },
-  'Standing Overhead Triceps Extension': {
+  'Seated Overhead Triceps Extension': {
     orientation: 'standing',
     torsoRest: 0,
     shoulderRest: 175,
@@ -37,16 +46,7 @@ export const EXERCISE_POSES: Record<string, ExercisePose> = {
     kneeRest: 0,
     animate: { elbow: { from: -140, to: 0 } },
   },
-  'Triceps Kickback': {
-    orientation: 'standing',
-    torsoRest: 65,
-    shoulderRest: -90,
-    elbowRest: -110,
-    hipRest: 0,
-    kneeRest: 0,
-    animate: { elbow: { from: -110, to: 0 } },
-  },
-  'Lying Triceps Extension': {
+  'Bench Skull Crushers': {
     orientation: 'lying',
     torsoRest: 0,
     shoulderRest: 90,
@@ -54,6 +54,24 @@ export const EXERCISE_POSES: Record<string, ExercisePose> = {
     hipRest: 0,
     kneeRest: 0,
     animate: { elbow: { from: -120, to: 0 } },
+  },
+  'Lat Pulldown': {
+    orientation: 'standing',
+    torsoRest: 0,
+    shoulderRest: 170,
+    elbowRest: 0,
+    hipRest: 0,
+    kneeRest: 0,
+    animate: { shoulder: { from: 170, to: 20 }, elbow: { from: 0, to: -90 } },
+  },
+  'Seated Cable Row': {
+    orientation: 'standing',
+    torsoRest: 0,
+    shoulderRest: 90,
+    elbowRest: 0,
+    hipRest: 0,
+    kneeRest: 0,
+    animate: { shoulder: { from: 90, to: -20 }, elbow: { from: 0, to: -90 } },
   },
   'Bent-Over Dumbbell Row': {
     orientation: 'standing',
@@ -64,23 +82,14 @@ export const EXERCISE_POSES: Record<string, ExercisePose> = {
     kneeRest: 0,
     animate: { shoulder: { from: 0, to: -90 }, elbow: { from: 0, to: -80 } },
   },
-  'Single-Arm Dumbbell Row': {
+  'Cable Bicep Curl': {
     orientation: 'standing',
-    torsoRest: 65,
+    torsoRest: 0,
     shoulderRest: 0,
     elbowRest: 0,
     hipRest: 0,
     kneeRest: 0,
-    animate: { shoulder: { from: 0, to: -90 }, elbow: { from: 0, to: -80 } },
-  },
-  'Renegade Row': {
-    orientation: 'standing',
-    torsoRest: 65,
-    shoulderRest: 0,
-    elbowRest: 0,
-    hipRest: 0,
-    kneeRest: 0,
-    animate: { shoulder: { from: 0, to: -90 }, elbow: { from: 0, to: -80 } },
+    animate: { elbow: { from: 0, to: -140 } },
   },
   'Standing Dumbbell Bicep Curl': {
     orientation: 'standing',
@@ -100,32 +109,23 @@ export const EXERCISE_POSES: Record<string, ExercisePose> = {
     kneeRest: 0,
     animate: { elbow: { from: 0, to: -140 } },
   },
-  'Concentration Curl': {
-    orientation: 'standing',
+  'Leg Press': {
+    orientation: 'lying',
     torsoRest: 0,
     shoulderRest: 0,
     elbowRest: 0,
-    hipRest: 0,
-    kneeRest: 0,
-    animate: { elbow: { from: 0, to: -140 } },
+    hipRest: 100,
+    kneeRest: -100,
+    animate: { hip: { from: 100, to: 70 }, knee: { from: -100, to: 0 } },
   },
-  'Dumbbell Goblet Squat': {
+  'Smith Machine Squat': {
     orientation: 'standing',
     torsoRest: 0,
     shoulderRest: 100,
-    elbowRest: -130,
+    elbowRest: -100,
     hipRest: 0,
     kneeRest: 0,
     animate: { torso: { from: 0, to: 12 }, hip: { from: 0, to: 35 }, knee: { from: 0, to: -90 } },
-  },
-  'Dumbbell Lunges': {
-    orientation: 'standing',
-    torsoRest: 0,
-    shoulderRest: 0,
-    elbowRest: 0,
-    hipRest: 0,
-    kneeRest: 0,
-    animate: { hip: { from: 0, to: 45 }, knee: { from: 0, to: -70 } },
   },
   'Dumbbell Romanian Deadlift': {
     orientation: 'standing',
@@ -136,7 +136,7 @@ export const EXERCISE_POSES: Record<string, ExercisePose> = {
     kneeRest: -10,
     animate: { torso: { from: 0, to: 65 } },
   },
-  'Standing Dumbbell Shoulder Press': {
+  'Seated Dumbbell Shoulder Press': {
     orientation: 'standing',
     torsoRest: 0,
     shoulderRest: 90,

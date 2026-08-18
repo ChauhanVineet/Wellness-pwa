@@ -162,7 +162,7 @@ export function WorkoutSession() {
         <div className="flex flex-col gap-2">
           {info.exercises.map((ex, i) => (
             <Card key={ex.name} className="flex items-center gap-3">
-              <ExerciseAnimation pose={EXERCISE_POSES[ex.name]} className="h-16 w-16 shrink-0" />
+              <ExerciseAnimation pose={EXERCISE_POSES[ex.name]} equipment={ex.equipment} className="h-16 w-16 shrink-0" />
               <div className="flex-1">
                 <p className="font-medium text-black dark:text-white">
                   {i + 1}. {ex.name}
@@ -203,7 +203,7 @@ export function WorkoutSession() {
       </div>
 
       <Card className="flex flex-col items-center gap-2 py-6 text-center">
-        <ExerciseAnimation pose={pose} className="h-40 w-40" />
+        <ExerciseAnimation pose={pose} equipment={exercise.equipment} className="h-40 w-40" />
 
         {phase === 'idle' && (
           <>

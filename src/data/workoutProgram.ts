@@ -1,8 +1,11 @@
 import type { WorkoutCategory } from '../db/db'
 
+export type Equipment = 'dumbbell' | 'bench' | 'cable' | 'lat_pulldown' | 'leg_press' | 'smith_machine'
+
 export interface WorkoutExercise {
   name: string
   muscleGroup: string
+  equipment: Equipment
 }
 
 export interface WorkoutCategoryInfo {
@@ -21,36 +24,36 @@ export const WORKOUT_PROGRAM: WorkoutCategoryInfo[] = [
     category: 'CHEST_TRICEPS',
     label: 'Chest & Triceps',
     exercises: [
-      { name: 'Dumbbell Floor Press', muscleGroup: 'Chest' },
-      { name: 'Dumbbell Floor Fly', muscleGroup: 'Chest' },
-      { name: 'Dumbbell Pullover', muscleGroup: 'Chest' },
-      { name: 'Standing Overhead Triceps Extension', muscleGroup: 'Triceps' },
-      { name: 'Triceps Kickback', muscleGroup: 'Triceps' },
-      { name: 'Lying Triceps Extension', muscleGroup: 'Triceps' },
+      { name: 'Flat Dumbbell Bench Press', muscleGroup: 'Chest', equipment: 'bench' },
+      { name: 'Incline Dumbbell Press', muscleGroup: 'Chest', equipment: 'bench' },
+      { name: 'Dumbbell Bench Fly', muscleGroup: 'Chest', equipment: 'bench' },
+      { name: 'Cable Triceps Pushdown', muscleGroup: 'Triceps', equipment: 'cable' },
+      { name: 'Seated Overhead Triceps Extension', muscleGroup: 'Triceps', equipment: 'bench' },
+      { name: 'Bench Skull Crushers', muscleGroup: 'Triceps', equipment: 'bench' },
     ],
   },
   {
     category: 'BACK_BICEPS',
     label: 'Back & Biceps',
     exercises: [
-      { name: 'Bent-Over Dumbbell Row', muscleGroup: 'Back' },
-      { name: 'Single-Arm Dumbbell Row', muscleGroup: 'Back' },
-      { name: 'Renegade Row', muscleGroup: 'Back' },
-      { name: 'Standing Dumbbell Bicep Curl', muscleGroup: 'Biceps' },
-      { name: 'Hammer Curl', muscleGroup: 'Biceps' },
-      { name: 'Concentration Curl', muscleGroup: 'Biceps' },
+      { name: 'Lat Pulldown', muscleGroup: 'Back', equipment: 'lat_pulldown' },
+      { name: 'Seated Cable Row', muscleGroup: 'Back', equipment: 'cable' },
+      { name: 'Bent-Over Dumbbell Row', muscleGroup: 'Back', equipment: 'dumbbell' },
+      { name: 'Cable Bicep Curl', muscleGroup: 'Biceps', equipment: 'cable' },
+      { name: 'Standing Dumbbell Bicep Curl', muscleGroup: 'Biceps', equipment: 'dumbbell' },
+      { name: 'Hammer Curl', muscleGroup: 'Biceps', equipment: 'dumbbell' },
     ],
   },
   {
     category: 'LEGS_SHOULDERS',
     label: 'Legs & Shoulders',
     exercises: [
-      { name: 'Dumbbell Goblet Squat', muscleGroup: 'Legs' },
-      { name: 'Dumbbell Lunges', muscleGroup: 'Legs' },
-      { name: 'Dumbbell Romanian Deadlift', muscleGroup: 'Legs' },
-      { name: 'Standing Dumbbell Shoulder Press', muscleGroup: 'Shoulders' },
-      { name: 'Lateral Raise', muscleGroup: 'Shoulders' },
-      { name: 'Front Raise', muscleGroup: 'Shoulders' },
+      { name: 'Leg Press', muscleGroup: 'Legs', equipment: 'leg_press' },
+      { name: 'Smith Machine Squat', muscleGroup: 'Legs', equipment: 'smith_machine' },
+      { name: 'Dumbbell Romanian Deadlift', muscleGroup: 'Legs', equipment: 'dumbbell' },
+      { name: 'Seated Dumbbell Shoulder Press', muscleGroup: 'Shoulders', equipment: 'bench' },
+      { name: 'Lateral Raise', muscleGroup: 'Shoulders', equipment: 'dumbbell' },
+      { name: 'Front Raise', muscleGroup: 'Shoulders', equipment: 'dumbbell' },
     ],
   },
 ]
