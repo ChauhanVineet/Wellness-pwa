@@ -11,6 +11,8 @@ import {
   SECONDS_PER_REP,
   getWorkoutCategory,
 } from '../data/workoutProgram'
+import { EXERCISE_POSES } from '../data/exerciseAnimations'
+import { ExerciseAnimation } from '../components/ExerciseAnimation'
 import { Button, Card } from '../components/ui'
 
 type Phase = 'idle' | 'active' | 'resting' | 'complete'
@@ -33,6 +35,7 @@ export function WorkoutSession() {
     ? (categoryParam as WorkoutCategory)
     : null
 
+  const [started, setStarted] = useState(false)
   const [exerciseIndex, setExerciseIndex] = useState(0)
   const [phase, setPhase] = useState<Phase>('idle')
   const [currentSet, setCurrentSet] = useState(1)
@@ -41,6 +44,18 @@ export function WorkoutSession() {
   const [justCompleted, setJustCompleted] = useState(false)
 
   const abortRef = useRef<AbortController | null>(null)
+
+  useEffect(() => {
+    abortRef.current?.abort()
+    cancelSpeech()
+    setStarted(false)
+    setExerciseIndex(0)
+    setPhase('idle')
+    setCurrentSet(1)
+    setCurrentRep(0)
+    setRestRemaining(REST_SECONDS)
+    setJustCompleted(false)
+  }, [categoryParam])
 
   useEffect(() => {
     requestWakeLock()
@@ -63,6 +78,7 @@ export function WorkoutSession() {
   const category = validCategory
   const info = getWorkoutCategory(category)
   const exercise = info.exercises[exerciseIndex]
+  const pose = EXERCISE_POSES[exercise.name]
 
   async function runExercise(index: number, signal: AbortSignal) {
     const ex = info.exercises[index]
@@ -122,6 +138,37 @@ export function WorkoutSession() {
     navigate('/workout')
   }
 
+  if (!started) {
+    return (
+      <div className="flex flex-col gap-4">
+        <div>
+          <h1 className="text-xl font-semibold text-black dark:text-white">{info.label}</h1>
+          <p className="text-sm text-black/60 dark:text-white/60">
+            Today's lineup — {info.exercises.length} exercises, {SETS_PER_EXERCISE} sets × {REPS_PER_SET} reps each.
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {info.exercises.map((ex, i) => (
+            <Card key={ex.name} className="flex items-center gap-3">
+              <ExerciseAnimation pose={EXERCISE_POSES[ex.name]} className="h-16 w-16 shrink-0" />
+              <div className="flex-1">
+                <p className="font-medium text-black dark:text-white">
+                  {i + 1}. {ex.name}
+                </p>
+                <p className="text-sm text-black/60 dark:text-white/60">
+                  {ex.muscleGroup} · {SETS_PER_EXERCISE} × {REPS_PER_SET}
+                </p>
+              </div>
+            </Card>
+          ))}
+        </div>
+
+        <Button onClick={() => setStarted(true)}>Start Workout</Button>
+      </div>
+    )
+  }
+
   if (phase === 'complete') {
     return (
       <div className="flex flex-col items-center gap-4 py-12 text-center">
@@ -144,7 +191,9 @@ export function WorkoutSession() {
         </p>
       </div>
 
-      <Card className="flex flex-col items-center gap-3 py-10 text-center">
+      <Card className="flex flex-col items-center gap-2 py-6 text-center">
+        <ExerciseAnimation pose={pose} className="h-40 w-40" />
+
         {phase === 'idle' && (
           <>
             <p className="text-black/70 dark:text-white/70">
