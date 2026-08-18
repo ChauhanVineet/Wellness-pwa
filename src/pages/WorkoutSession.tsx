@@ -11,8 +11,7 @@ import {
   SECONDS_PER_REP,
   getWorkoutCategory,
 } from '../data/workoutProgram'
-import { EXERCISE_POSES } from '../data/exerciseAnimations'
-import { ExerciseAnimation } from '../components/ExerciseAnimation'
+import { PhotoAnimation } from '../components/PhotoAnimation'
 import { Button, Card } from '../components/ui'
 
 type Phase = 'idle' | 'active' | 'resting' | 'complete'
@@ -89,7 +88,6 @@ export function WorkoutSession() {
   const category = validCategory
   const info = getWorkoutCategory(category)
   const exercise = info.exercises[exerciseIndex]
-  const pose = EXERCISE_POSES[exercise.name]
 
   async function runExercise(index: number, signal: AbortSignal) {
     const ex = info.exercises[index]
@@ -162,7 +160,7 @@ export function WorkoutSession() {
         <div className="flex flex-col gap-2">
           {info.exercises.map((ex, i) => (
             <Card key={ex.name} className="flex items-center gap-3">
-              <ExerciseAnimation pose={EXERCISE_POSES[ex.name]} equipment={ex.equipment} className="h-16 w-16 shrink-0" />
+              <PhotoAnimation exerciseId={ex.imageId} className="w-24 shrink-0" />
               <div className="flex-1">
                 <p className="font-medium text-black dark:text-white">
                   {i + 1}. {ex.name}
@@ -203,7 +201,7 @@ export function WorkoutSession() {
       </div>
 
       <Card className="flex flex-col items-center gap-2 py-6 text-center">
-        <ExerciseAnimation pose={pose} equipment={exercise.equipment} className="h-40 w-40" />
+        <PhotoAnimation exerciseId={exercise.imageId} className="max-w-xs" />
 
         {phase === 'idle' && (
           <>
