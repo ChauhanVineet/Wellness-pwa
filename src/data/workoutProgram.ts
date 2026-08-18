@@ -13,7 +13,7 @@ export interface WorkoutCategoryInfo {
 
 export const SETS_PER_EXERCISE = 3
 export const REPS_PER_SET = 10
-export const REST_SECONDS = 60
+export const REST_SECONDS = 90
 export const SECONDS_PER_REP = 2.2
 
 export const WORKOUT_PROGRAM: WorkoutCategoryInfo[] = [

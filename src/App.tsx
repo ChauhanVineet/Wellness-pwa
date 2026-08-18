@@ -10,7 +10,7 @@ import { Reports } from './pages/Reports'
 function App() {
   return (
     <HashRouter>
-      <div className="mx-auto flex min-h-svh max-w-md flex-col bg-[#f6f9f7] dark:bg-[#10201a]">
+      <div className="mx-auto flex min-h-svh max-w-md flex-col bg-[#f5f8ff] dark:bg-[#0b1220]">
         <main className="flex-1 overflow-y-auto p-4 pb-2">
           <Routes>
             <Route path="/" element={<Dashboard />} />

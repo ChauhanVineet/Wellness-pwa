@@ -17,6 +17,17 @@ import { Button, Card } from '../components/ui'
 
 type Phase = 'idle' | 'active' | 'resting' | 'complete'
 
+function formatDuration(totalSeconds: number): string {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  const parts: string[] = []
+  if (minutes > 0) parts.push(`${minutes} minute${minutes === 1 ? '' : 's'}`)
+  if (seconds > 0) parts.push(`${seconds} seconds`)
+  return parts.join(' ')
+}
+
+const restDurationText = formatDuration(REST_SECONDS)
+
 function sleep(ms: number, signal: AbortSignal): Promise<void> {
   return new Promise((resolve, reject) => {
     if (signal.aborted) return reject(new DOMException('Aborted', 'AbortError'))
@@ -99,7 +110,7 @@ export function WorkoutSession() {
 
         if (set < SETS_PER_EXERCISE) {
           setPhase('resting')
-          speak('Rest for 1 minute.')
+          speak(`Rest for ${restDurationText}.`)
           for (let remaining = REST_SECONDS; remaining >= 1; remaining--) {
             setRestRemaining(remaining)
             if (remaining === 10) speak('10 seconds left.')

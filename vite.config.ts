@@ -14,8 +14,8 @@ export default defineConfig({
         name: 'Wellness',
         short_name: 'Wellness',
         description: 'Exercises, weight, and health records tracker',
-        theme_color: '#0b6e4f',
-        background_color: '#f6f9f7',
+        theme_color: '#1d4ed8',
+        background_color: '#f5f8ff',
         display: 'standalone',
         start_url: '/',
         icons: [

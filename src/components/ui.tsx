@@ -2,7 +2,7 @@ import type { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react
 
 export function Card({ children, className = '' }: { children: ReactNode; className?: string }) {
   return (
-    <div className={`rounded-xl border border-black/10 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-[#16281f] ${className}`}>
+    <div className={`rounded-xl border border-black/10 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-[#111c30] ${className}`}>
       {children}
     </div>
   )
@@ -57,7 +57,7 @@ export function Dialog({
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40 sm:items-center" onClick={onClose}>
       <div
-        className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-t-2xl bg-white p-5 dark:bg-[#16281f] sm:rounded-2xl"
+        className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-t-2xl bg-white p-5 dark:bg-[#111c30] sm:rounded-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="mb-4 text-lg font-semibold text-black dark:text-white">{title}</h2>

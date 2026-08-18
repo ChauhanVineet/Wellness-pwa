@@ -47,7 +47,7 @@ export function ExerciseAnimation({ pose, className = '' }: { pose: ExercisePose
   const orientationDeg = pose.orientation === 'lying' ? 90 : 0
 
   return (
-    <svg viewBox="0 0 200 200" className={className} stroke="#0b6e4f" strokeWidth={5} strokeLinecap="round" fill="none">
+    <svg viewBox="0 0 200 200" className={className} stroke="#1d4ed8" strokeWidth={5} strokeLinecap="round" fill="none">
       <line x1="10" y1="188" x2="190" y2="188" stroke="currentColor" strokeOpacity={0.15} strokeWidth={2} />
       <g transform={`translate(100,140) rotate(${orientationDeg})`}>
         {/* Leg: hip -> knee */}
@@ -64,7 +64,7 @@ export function ExerciseAnimation({ pose, className = '' }: { pose: ExercisePose
         <g transform={`rotate(${pose.torsoRest})`}>
           <AnimatedRotate range={pose.animate.torso} />
           <line x1={0} y1={0} x2={0} y2={-TORSO_LEN} />
-          <circle cx={0} cy={-TORSO_LEN - HEAD_R - 2} r={HEAD_R} fill="#0b6e4f" stroke="none" />
+          <circle cx={0} cy={-TORSO_LEN - HEAD_R - 2} r={HEAD_R} fill="#1d4ed8" stroke="none" />
 
           {/* Arm: shoulder -> elbow -> dumbbell */}
           <g transform={`translate(0, ${-TORSO_LEN}) rotate(${pose.shoulderRest})`}>
@@ -74,9 +74,9 @@ export function ExerciseAnimation({ pose, className = '' }: { pose: ExercisePose
               <AnimatedRotate range={pose.animate.elbow} />
               <line x1={0} y1={0} x2={0} y2={FOREARM_LEN} />
               <g transform={`translate(0, ${FOREARM_LEN})`}>
-                <rect x={-3} y={-9} width={6} height={18} rx={1.5} fill="#4c9a7c" stroke="none" />
-                <circle cx={0} cy={-9} r={5} fill="#0b6e4f" stroke="none" />
-                <circle cx={0} cy={9} r={5} fill="#0b6e4f" stroke="none" />
+                <rect x={-3} y={-9} width={6} height={18} rx={1.5} fill="#3b82f6" stroke="none" />
+                <circle cx={0} cy={-9} r={5} fill="#1d4ed8" stroke="none" />
+                <circle cx={0} cy={9} r={5} fill="#1d4ed8" stroke="none" />
               </g>
             </g>
           </g>

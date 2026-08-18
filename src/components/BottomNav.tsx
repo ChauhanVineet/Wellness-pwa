@@ -11,7 +11,7 @@ const items = [
 
 export function BottomNav() {
   return (
-    <nav className="sticky bottom-0 border-t border-black/10 bg-white/90 backdrop-blur dark:border-white/10 dark:bg-[#16281f]/90">
+    <nav className="sticky bottom-0 border-t border-black/10 bg-white/90 backdrop-blur dark:border-white/10 dark:bg-[#111c30]/90">
       <ul className="mx-auto flex max-w-md justify-around">
         {items.map(({ to, label, icon: Icon, end }) => (
           <li key={to} className="flex-1">

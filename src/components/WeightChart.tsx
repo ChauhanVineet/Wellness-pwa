@@ -40,9 +40,9 @@ export function WeightChart({ entries }: { entries: WeightEntry[] }) {
           strokeOpacity={0.08}
         />
       ))}
-      <path d={path} fill="none" stroke="#0b6e4f" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
+      <path d={path} fill="none" stroke="#1d4ed8" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round" />
       {points.map((p, i) => (
-        <circle key={i} cx={p.x} cy={p.y} r={4} fill="#4c9a7c" stroke="white" strokeWidth={1.5} />
+        <circle key={i} cx={p.x} cy={p.y} r={4} fill="#3b82f6" stroke="white" strokeWidth={1.5} />
       ))}
     </svg>
   )
