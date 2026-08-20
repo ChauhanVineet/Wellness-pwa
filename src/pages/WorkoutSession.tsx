@@ -190,18 +190,16 @@ export function WorkoutSession() {
 
   return (
     <div className="flex flex-col gap-4">
-      <div>
-        <p className="text-sm text-black/60 dark:text-white/60">
-          {info.label} · Exercise {exerciseIndex + 1} of {info.exercises.length}
-        </p>
-        <h1 className="text-xl font-semibold text-black dark:text-white">{exercise.name}</h1>
-        <p className="text-sm text-black/60 dark:text-white/60">
-          {exercise.muscleGroup} · {SETS_PER_EXERCISE} sets × {REPS_PER_SET} reps
-        </p>
-      </div>
+      <p className="text-sm text-black/60 dark:text-white/60">
+        {info.label} · Exercise {exerciseIndex + 1} of {info.exercises.length}
+      </p>
 
       <Card className="flex flex-col items-center gap-2 py-6 text-center">
         <PhotoAnimation exerciseId={exercise.imageId} className="max-w-xs" />
+        <h1 className="mt-1 text-xl font-semibold text-black dark:text-white">{exercise.name}</h1>
+        <p className="text-sm text-black/60 dark:text-white/60">
+          {exercise.muscleGroup} · {SETS_PER_EXERCISE} sets × {REPS_PER_SET} reps
+        </p>
 
         {phase === 'idle' && (
           <>
